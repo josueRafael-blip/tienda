@@ -1,37 +1,54 @@
 import streamlit as st
 
-st.set_page_config(page_title="Tienda Online", layout="wide")
+st.set_page_config(page_title="Tienda Online", layout="wide", page_icon="🛍️")
 
-# --- ESTILO CSS PARA DAR VIDA A LA TIENDA ---
+# -------- DISEÑO Y ESTILOS (CSS) --------
 st.markdown("""
     <style>
-    /* Estilo para los botones de 'Agregar' */
+    /* Fondo de la aplicación */
+    .stApp {
+        background-color: #f4f7f6;
+    }
+    
+    /* Estilo para los botones de compra */
     .stButton>button {
-        background-color: #000000;
+        width: 100%;
+        border-radius: 25px;
+        background-color: #1E1E1E;
         color: white;
-        border-radius: 20px;
-        border: 1px solid #000000;
-        transition: 0.3s;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+        transition: all 0.3s ease;
     }
+    
     .stButton>button:hover {
-        background-color: #ff4b4b;
-        border: 1px solid #ff4b4b;
+        background-color: #FF4B4B;
         color: white;
+        transform: scale(1.02);
     }
-    /* Estilo para los títulos de sección */
-    h1 {
-        color: #1E1E1E;
-        font-family: 'Helvetica', sans-serif;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-    /* Contenedor de productos */
+    
+    /* Tarjetas de productos (Contenedores) */
     [data-testid="stVerticalBlock"] > div:has(div.stImage) {
-        background-color: #ffffff;
-        padding: 15px;
+        background: white;
+        padding: 20px;
         border-radius: 15px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border: 1px solid #efefef;
+    }
+    
+    /* Títulos y textos */
+    h1 {
+        font-family: 'Inter', sans-serif;
+        color: #1E1E1E;
+        border-bottom: 2px solid #FF4B4B;
+        padding-bottom: 10px;
+    }
+    
+    .price-tag {
+        color: #FF4B4B;
+        font-size: 24px;
+        font-weight: 700;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -41,11 +58,13 @@ if "carrito" not in st.session_state:
     st.session_state.carrito = []
 
 # -------- MENÚ PRINCIPAL --------
-st.sidebar.markdown("## 🛍️ **StyleHub**")
-menu = ["Inicio", "Hombres", "Mujeres", "Ofertas", "Carrito", "Contacto"]
-seccion = st.sidebar.radio("Navegar por la tienda:", menu)
-st.sidebar.markdown("---")
-st.sidebar.write(f"🛒 **Productos en carrito:** {len(st.session_state.carrito)}")
+with st.sidebar:
+    st.markdown("# 🚀 Style Store")
+    st.markdown("---")
+    menu = ["Inicio", "Hombres", "Mujeres", "Ofertas", "Carrito", "Contacto"]
+    seccion = st.sidebar.radio("Categorías principales:", menu)
+    st.markdown("---")
+    st.metric(label="Artículos en Carrito", value=len(st.session_state.carrito))
 
 # -------- FUNCION PRODUCTO --------
 def producto(nombre, precio, img):
@@ -56,24 +75,25 @@ def producto(nombre, precio, img):
     
     with col2:
         st.subheader(nombre)
-        st.markdown(f"<h3 style='color: #ff4b4b;'>S/ {precio}</h3>", unsafe_allow_html=True)
-        if st.button(f"Agregar {nombre}"):
+        st.markdown(f'<p class="price-tag">S/ {precio}</p>', unsafe_allow_html=True)
+        # Botón con key única para evitar errores de Streamlit
+        if st.button(f"🛒 Añadir {nombre}", key=f"btn_{nombre}_{precio}"):
             st.session_state.carrito.append((nombre, precio))
-            st.toast(f"✅ {nombre} añadido") # Feedback visual rápido
+            st.toast(f"¡{nombre} agregado!") # Notificación flotante
 
 # -------- INICIO --------
 if seccion == "Inicio":
-    st.title("👕 Tienda Online de Ropa")
-    st.markdown("### ¡Bienvenido! Explora nuestras categorías:")
+    st.title("👕 Nueva Temporada 2026")
+    st.write("### La mejor moda a un click de distancia.")
     st.image("https://images.unsplash.com/photo-1441986300917-64674bd600d8", use_container_width=True)
-    st.divider()
+    st.info("💡 Tip: Revisa la sección de **Ofertas** para descuentos exclusivos.")
 
 # -------- HOMBRES --------
 elif seccion == "Hombres":
-    st.title("👔 Sección Hombres")
+    st.title("👔 Moda Masculina")
     
-    sub = st.selectbox("¿Qué estás buscando hoy?", ["Polos", "Camisas", "Zapatillas"])
-    st.markdown("---")
+    sub = st.selectbox("Selecciona un estilo:", ["Polos", "Camisas", "Zapatillas"])
+    st.divider()
     
     if sub == "Polos":
         producto("Polo básico", 35, "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab")
@@ -89,10 +109,10 @@ elif seccion == "Hombres":
 
 # -------- MUJERES --------
 elif seccion == "Mujeres":
-    st.title("👗 Sección Mujeres")
+    st.title("👗 Moda Femenina")
     
     sub = st.selectbox("Categoría", ["Blusas", "Vestidos", "Tacones"])
-    st.markdown("---")
+    st.divider()
     
     if sub == "Blusas":
         producto("Blusa elegante", 50, "https://img.kwcdn.com/product/fancy/b59ffcc2-46b5-4b74-a97f-885552a1e6fe.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp")
@@ -105,10 +125,10 @@ elif seccion == "Mujeres":
 
 # -------- OFERTAS --------
 elif seccion == "Ofertas":
-    st.title("🔥 Super Ofertas")
+    st.title("🔥 Hot Sale")
     
-    sub = st.selectbox("Tipo", ["Descuentos", "Liquidación"])
-    st.markdown("---")
+    sub = st.selectbox("Ver ofertas de:", ["Descuentos", "Liquidación"])
+    st.divider()
     
     if sub == "Descuentos":
         producto("Polo en descuento", 20, "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab")
@@ -118,27 +138,31 @@ elif seccion == "Ofertas":
 
 # -------- CARRITO --------
 elif seccion == "Carrito":
-    st.title("🛒 Carrito de compras")
+    st.title("🛒 Tu Carrito")
     
     total = 0
     if not st.session_state.carrito:
-        st.info("Tu carrito está vacío.")
+        st.warning("Aún no has agregado productos.")
     else:
         for item in st.session_state.carrito:
-            st.write(f"✅ {item[0]} - S/ {item[1]}")
+            with st.expander(f"📦 {item[0]}"):
+                st.write(f"Precio unitario: S/ {item[1]}")
             total += item[1]
         
         st.markdown("---")
-        st.subheader(f"Total: S/ {total}")
-        if st.button("Finalizar Pedido"):
+        st.markdown(f"## Total: **S/ {total}**")
+        if st.button("Confirmar Pedido y Pagar"):
             st.balloons()
-            st.success("¡Gracias por tu compra!")
+            st.success("¡Pedido procesado con éxito!")
+            st.session_state.carrito = []
 
 # -------- CONTACTO --------
 elif seccion == "Contacto":
-    st.title("📞 Información de Contacto")
-    with st.container():
-        st.info("Atendemos de Lunes a Sábado de 9:00 AM a 8:00 PM")
-        st.write("💬 **WhatsApp:** 999 999 999")
-        st.write("✉️ **Correo:** tienda@email.com")
-        st.write("📍 **Ubicación:** Lima, Perú")
+    st.title("📞 Canal de Atención")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.success("📱 WhatsApp: 999 999 999")
+        st.info("✉️ Correo: tienda@email.com")
+    with col_b:
+        st.warning("📍 Ubicación: Lima, Perú")
+        st.write("Horario: 9am - 8pm")
