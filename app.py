@@ -42,7 +42,7 @@ elif seccion == "Hombres":
         producto("Polo deportivo", 45, "https://images.unsplash.com/photo-1512436991641-6745cdb1723f")
 
     elif sub == "Camisas":
-        producto("Camisa formal", 80, "https://images.unsplash.com/photo-1520975922284-8b456906c813")
+        producto("Camisa formal", 80, "https://http2.mlstatic.com/D_NQ_NP_977591-MPE105977808212_022026-O-camisa-formal-a-rayas-de-hombre.webp")
         producto("Camisa casual", 60, "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf")
 
     elif sub == "Zapatillas":
