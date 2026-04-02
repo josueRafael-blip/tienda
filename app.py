@@ -42,12 +42,12 @@ elif seccion == "Hombres":
         producto("Polo deportivo", 45, "https://images.unsplash.com/photo-1512436991641-6745cdb1723f")
 
     elif sub == "Camisas":
-        producto("Camisa formal", 80, "https://http2.mlstatic.com/D_NQ_NP_977591-MPE105977808212_022026-O-camisa-formal-a-rayas-de-hombre.webp")
+        producto("Camisa formal", 80, "https://mbo.com.pe/cdn/shop/files/CAMISAS_FORMALES_270x360@2x.webp?v=1774274537")
         producto("Camisa casual", 60, "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf")
 
     elif sub == "Zapatillas":
         producto("Zapatillas urbanas", 120, "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77")
-        producto("Zapatillas deportivas", 140, "https://images.unsplash.com/photo-1519741497674-611481863552")
+        producto("Zapatillas deportivas", 140, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgyYVFQhJR9umcl67vAaKiUR9p8fDLFSb81g&s")
 
 # -------- MUJERES --------
 elif seccion == "Mujeres":
@@ -56,13 +56,13 @@ elif seccion == "Mujeres":
     sub = st.selectbox("Categoría", ["Blusas", "Vestidos", "Tacones"])
     
     if sub == "Blusas":
-        producto("Blusa elegante", 50, "https://images.unsplash.com/photo-1520975916090-3105956dac38")
+        producto("Blusa elegante", 50, "https://img.kwcdn.com/product/fancy/b59ffcc2-46b5-4b74-a97f-885552a1e6fe.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp")
     
     elif sub == "Vestidos":
-        producto("Vestido rojo", 90, "https://images.unsplash.com/photo-1490481651871-ab68de25d43d")
+        producto("Vestidos hermosos", 90, "https://images.unsplash.com/photo-1490481651871-ab68de25d43d")
     
     elif sub == "Tacones":
-        producto("Tacones negros", 110, "https://images.unsplash.com/photo-1519741497674-611481863552")
+        producto("Tacones negros", 110, "https://m.media-amazon.com/images/I/61W5S3xfayL._AC_UF894,1000_QL80_.jpg")
 
 # -------- OFERTAS --------
 elif seccion == "Ofertas":
